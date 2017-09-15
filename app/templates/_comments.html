@@ -1,0 +1,18 @@
+<div class="comments col-sm-12">
+    <h2>文章评论</h2>
+{% for comment in comments %}
+	<ul class="comment col-sm-12 well">
+	<div class="comment-user col-sm-1">
+	<div class="user-img">
+		<a href="#"><img class="img-circle" src="{{ url_for('static', filename=User.query.filter_by(username=comment.commentator).first().head_img) }}" width="30" height="30"></a>
+	</div>
+	<div class="username">
+		<a href="#">{{ comment.commentator }}</a>
+	</div>
+	</div>
+	<div class="comment-body col-sm-11">
+		{{ comment.body }}
+	</div>
+	</ul>
+	{% endfor %}
+</div>

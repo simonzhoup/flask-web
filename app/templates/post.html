@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block page_content %}
+	<div class="post col-xs-12" style="height: 100%;">
+        <div class="post-head-img col-xs-12">
+            <img class="img-responsive" src="{{ url_for('static', filename=post.post_img) }}">
+        </div>
+        <div class="post-meta col-xs-12">
+
+            <div class="post-author col-xs-5">
+                作者：
+                <a href="{{ url_for('.user', username=post.author.username) }}">
+                {{ post.author.username }}
+                </a>
+            </div>
+            <div class="post-date col-xs-5">
+            发布于：{{ moment(post.timestamp).format('L') }}
+            </div>
+			<div class="editpost col-xs-2">
+				<a href="{{ url_for('.editpost', id=post.id) }}">
+					<button type="button" class="btn btn-primary">
+						编辑
+					</button>
+				</a>
+			</div>
+        </div>
+        <div class="post-body col-xs-12" style="background: #fff; box-shadow: 10px 10px 4px #B0B0B0; margin-top: 20px;">
+			<p style="font-size: 30px; margin-top: 20px; text-align: center; color: #337ab7;">{{ post.post_head }}</p>
+			{{ post.body | safe }}
+		</div>
+    </div>
+    <div class="comment col-xs-12">
+        {{ wtf.quick_form(form) }}
+    </div>
+    {% include '_comments.html' %}
+{% endblock %}

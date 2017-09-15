@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+<div class="user col-sm-12" style=" margin-top: 30px;">
+	<div class="user-img col-sm-6">
+		<a href="{{ url_for('.upload_photo') }}" data-toggle="tooltip" title="修改头像"><img class="img-circle" src="{{ url_for('static', filename=user.head_img) }}" width="260" height="260"></a>
+	</div>
+	<div class="user-mete col-sm-6">
+		<h2>{{ user.username }}</h2>
+			{% if user.name or user.location %}
+		<p>
+			{% if user.name %}{{ user.name }}{% endif %}</p>
+		<p>
+		{% if user.location %}
+			来自：<a target="_blank" href="http://api.map.baidu.com/geocoder?address={{ user.location }}&output=html">
+			{{ user.location }}
+			</a>
+		{% endif %}
+		</p>
+		{% endif %}
+		{% if current_user.is_administrator() %}
+		<p><a href="mailto:{{ user.email }}">{{ user.email }}</a></p>
+		{% endif %}
+		{% if user.about_me %}<p>{{ user.about_me }}</p>{% endif %}
+		<p>
+			注册时间： {{ moment(user.member_since).format('L') }}<br />
+			最后登录时间： {{ moment(user.last_seen).fromNow() }}
+		</p>
+		<p>
+		{% if user != current_user and current_user.is_authenticated %}
+		{% if current_user.following(user) %}
+		<a class="btn btn-info" href="{{ url_for('.unfollow', username=user.username) }}">取消关注</a>
+		{% else %}
+		<a class="btn btn-success" href="{{ url_for('.follow', username=user.username) }}">关注</a>
+		{% endif %}
+		{% endif %}
+		关注了: <a href="{{ url_for('.following',username=user.username) }}"><span class="badge" style="background: #5bc0de;">{{ following }}</span></a>
+		被关注: <a href="{{ url_for('.follower',username=user.username) }}"><span class="badge" style="background: #5bc0de;">{{ follower }}</span></a>
+		{% if current_user.is_authenticated and user.following(current_user) %}
+		| <span class="label label-default" style="background: #5bc0de;">关注了你</span>
+		{% endif %}
+		</p>
+		
+		{% if user == current_user %}
+		<a class="btn btn-default" href="{{ url_for('.edit_profile') }}">
+			编辑资料
+		</a>
+		{% endif %}
+		{% if current_user.is_administrator() %}
+		<a class="btn btn-danger" href="{{ url_for('.edit_profile_admin', id=user.id) }}">
+			编辑资料【管理员】
+		</a>
+		{% endif %}
+	</div>
+</div>
+<div class="col-sm-12" style="margin-top: 30px;">
+<h3>{{ user.username }} 的文章</h3>
+</div>
+{% include '_posts.html' %}
+{% endblock %}

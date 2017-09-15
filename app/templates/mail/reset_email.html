@@ -1,0 +1,9 @@
+亲爱的 <b>{{ user.username }}</b>
+
+你正在申请更换邮箱，请点击链接
+
+<b>{{ url_for('auth.confirme3', token=token, _external=True) }}</b>
+
+Simon Cat
+
+Note: 请不要回复此邮件。

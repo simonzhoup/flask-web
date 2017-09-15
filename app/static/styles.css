@@ -1,0 +1,88 @@
+html {
+    background-color:#E9EAEC;
+    height: 100%;
+}
+body {
+    background-color:#E9EAEC;
+}
+.posts {
+    background-color:#E9EAEC;
+}
+
+.post-meta {
+    margin-top: 20px;
+    font-size: 18px;
+    color: #777;
+}
+.post-head-img {
+
+}
+.post-head {
+    padding: 10px;
+    margin-top: 20px;
+    background: #fff;
+    font-size:25px;
+    color: #6495ED;
+}
+li.post {
+    margin-bottom: 40px;
+    /* border: 1px solid #CBCBCB;*/
+    background: #fff;
+    box-shadow: 10px 10px 4px #B0B0B0;
+    text-decoration: none;
+}
+div.comment {
+    margin-top: 30px;
+}
+div.comments {
+    margin-top: 30px;
+}
+li {
+    list-style: none;
+}
+div.pagination {
+    width: 100%;
+    text-align: right;
+    padding: 0px;
+    margin: 0px;
+}
+div.foot {
+    margin-top: 30px;
+    background: #fff;
+    height: 100px;
+    color: #9fadc7;
+    text-decoration: none;
+}
+div.footer {
+    padding: 20px 10px 10px 20px;
+
+}
+div.flask-pagedown-preview {
+    margin: 10px 0px 10px 0px;
+    border: 1px solid #e0e0e0;
+    padding: 4px;
+}
+div.flask-pagedown-preview h1 {
+    font-size: 140%;
+}
+div.flask-pagedown-preview h2 {
+    font-size: 130%;
+}
+div.flask-pagedown-preview h3 {
+    font-size: 120%;
+}
+.post-body h1 {
+    font-size: 140%;
+}
+.post-body h2 {
+    font-size: 130%;
+}
+.post-body h3 {
+    font-size: 120%;
+}
+.table.followers tr {
+    border-bottom: 1px solid #e0e0e0;
+}
+a:link {
+    text-decoration: none;
+}

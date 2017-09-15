@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+<table class="table table-hover">
+	<caption><h1>{{ username }}关注的人</h1></caption>
+	<thead>
+		<tr>
+			<th>用户名</th>
+			<th>关注时间</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for following in followings %}
+
+		<tr>
+			<td><a href="{{ url_for('.user',username=User.query.filter_by(id=following.follow_to).first().username) }}">
+			{{ User.query.filter_by(id=following.follow_to).first().username }}</a></td>
+			<td>{{ moment(following.timestamp).format('L') }}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+{% endblock %}
+{% block foot %}{% endblock %}

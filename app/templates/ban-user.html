@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+<div class="page-header">
+    <h1>
+        你好！
+    </h1>
+    <h3>当你看到这个页面，说明你可能由于违规操作被暂时关进了小黑屋。</h3>
+    <p>
+        你暂时无法进入社区，直至账号解除小黑屋状态。
+        你可以耐心等待管理员解锁你的账号，也可以点击下方的链接申请解除。
+    </p>
+    <p>
+        申请解除账号，
+        <a href="{{ url_for('main.unlock') }}">点击这里</a>
+    </p>
+</div>
+{% endblock %}
+{% block foot %}{% endblock %}

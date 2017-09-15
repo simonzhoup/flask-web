@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+<table class="table table-hover">
+	<caption><h1>用户管理</h1></caption>
+	<thead>
+		<tr>
+            <th>用户名</th>
+            <th>真实姓名</th>
+            <th>住址</th>
+            <th>验证状态</th>
+            <th>用户组</th>
+			<th>注册时间</th>
+            <th>最后登录时间</th>
+            <th>操作</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for user in users %}
+
+		<tr>
+			<td><a href="{{ url_for('.user',username=user.username) }}">
+			{{ user.username }}</a></td>
+            <td>{{ user.name }}</td>
+            <td><a href="http://api.map.baidu.com/geocoder?address={{ user.location }}&output=html">{{ user.location }}</a></td>
+            <td>{{ user.confirmed }}</td>
+            <td>{{ user.role.name }}</td>
+            <td>{{ moment(user.member_since).format('L') }}</td>
+			<td>{{ moment(user.last_seen ).fromNow() }}</td>
+            <td>
+                {% if user.is_administrator() %}
+                {% else %}
+                <div class="btn-group">
+                    <button type="button" class="btn btn-danger btn-xs"><a href="{{ url_for('.edit_profile_admin', id=user.id) }}" style="color: #ffffff;">编辑资料</a></button>
+                    <button type="button" class="btn btn-danger dropdown-toggle btn-xs" data-toggle="dropdown">
+                    <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        {% if "#" in user.username %}
+                        <li><a href="{{ url_for('.unlock_user', id=user.id) }}">解除小黑屋</a></li>
+                        {% else %}
+                        <li><a href="{{ url_for('.ban_user', id=user.id) }}">小黑屋</a></li>
+                        {% endif %}
+                        <li data-toggle="modal"><a href="{{ url_for('.delete_user',id=user.id) }}" onclick="return confirm('请确认删除');">删除用户</a></li>
+                    </ul>
+                </div>
+                {% endif %}
+            </td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+{% endblock %}
+{% block foot %}{% endblock %}
