@@ -26,8 +26,8 @@
             </div>
             <div class="post-date col-xs-4 col-sm-4">发布于：{{ moment(post.timestamp).format('L') }}</div>
             <div class="comment-count col-xs-2 col-sm-4">
-            <p class="text-right">
-            {{ Comment.query.filter_by(post_id=post.id).count() }} 条评论</p></div>
+            <p class="text-right" style="font-size: 10px;">
+            {{ Comment.query.filter_by(post_id=post.id).count() }} 条评论<br>{{ post.count }} 次浏览</p></div>
         </div>
     </li>
     {% endfor %}

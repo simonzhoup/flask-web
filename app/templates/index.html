@@ -1,18 +1,51 @@
 {% extends "base.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
 
-{% block page_content %}
+{% block page_head %}
 
 <div class="page-header">
-	<h1>
-	Hello
-	{% if current_user.is_authenticated %}
-		{{ current_user.username }}
-	{% else %}
-		陌生人
-	{% endif %}
-	！
-	</h1>
+    <h1>
+    Hello
+    {% if current_user.is_authenticated %}
+        {{ current_user.username }}
+    {% else %}
+        陌生人
+    {% endif %}
+    ！
+    </h1>
 </div>
+{% endblock %}
+{% block page_content %}
 {% include '_posts.html' %}
+{% endblock %}
+{% block page_right %}
+<h2>Daily pictures</p>
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <!-- 轮播（Carousel）指标 -->
+    <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+    </ol>   
+    <!-- 轮播（Carousel）项目 -->
+    <div class="carousel-inner">
+        <div class="item active">
+            <img src="{{ image_url[0] }}" alt="First slide">
+        </div>
+        {% for url in image_url[1:] %}
+        <div class="item">
+            <img src="{{ url }}" alt="Second slide">
+        </div>
+        {% endfor %}
+    </div>
+    <!-- 轮播（Carousel）导航 -->
+    <a class="carousel-control left" href="#myCarousel" 
+        data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+    </a>
+    <a class="carousel-control right" href="#myCarousel" 
+        data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+    </a>
+</div>
 {% endblock %}

@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block page_content %}
+{% block page_head %}
 <div class="user col-sm-12" style=" margin-top: 30px;">
 	<div class="user-img col-sm-6">
 		<a href="{{ url_for('.upload_photo') }}" data-toggle="tooltip" title="修改头像"><img class="img-circle" src="{{ url_for('static', filename=user.head_img) }}" width="260" height="260"></a>
@@ -27,6 +27,7 @@
 			最后登录时间： {{ moment(user.last_seen).fromNow() }}
 		</p>
 		<p>
+		<p>关注的话题：{{ user.topics }}</p>
 		{% if user != current_user and current_user.is_authenticated %}
 		{% if current_user.following(user) %}
 		<a class="btn btn-info" href="{{ url_for('.unfollow', username=user.username) }}">取消关注</a>
@@ -53,8 +54,8 @@
 		{% endif %}
 	</div>
 </div>
-<div class="col-sm-12" style="margin-top: 30px;">
+<div class="col-lg-8 col-lg-offset-2" style="margin-top: 30px;">
 <h3>{{ user.username }} 的文章</h3>
-</div>
 {% include '_posts.html' %}
+</div>
 {% endblock %}

@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block title %}话题广场{% endblock %}
+
+{% block page_content %}
+<div class="page-header col-xs-12" style="margin-bottom: 20px;">
+	{% for t in topics %}
+	{% if t in user.topics %}	
+	<a class="btn btn-info" href="{{ url_for('.show_topics', who=t) }}">{{ t }}</a>
+	{% else %}
+	<a class="btn btn-success" href="{{ url_for('.show_topics', who=t) }}">{{ t }}</a>
+	{% endif %}
+	{% endfor %}
+	{% if not show_topics %}
+	<h2>主题广场</h2>
+	<h3>选择你感兴趣的主题开始探索吧！</h3>
+	{% else %}
+	<h2>{{ show_topics }}</h2>
+	<h3>******话题描述********</h3>
+	{% if show_topics in user.topics %}
+	<a class="btn btn-info" href="{{ url_for('.untopic', topic=show_topics) }}">取消关注</a>
+	{% else %}
+	<a class="btn btn-info" href="{{ url_for('.user_topics',topic=show_topics) }}">关注</a>
+	{% endif %}
+	{% endif %}
+</div>
+<div class="page-header col-xs-12">
+	{% if posts and show_topics %}
+	{% include '_posts.html' %}
+	{% elif posts %}
+		<p>以下是你已关注话题的所有文章</p>
+		<div class="posts col-sm-12">
+		{% for post in posts %}
+		{% if post.topics in user.topics %}
+		    <li class="post">
+		        <div class="post-head-img">
+		            <a href="{{ url_for('.post', id=post.id) }}">
+		                <img class="img-responsive" src="{{ url_for('static', filename=post.post_img) }}">
+		            </a>
+		        </div>
+		        <div class="post-head">
+		            <a href="{{ url_for('.post', id=post.id) }}">
+		            {{ post.post_head }}<small style="font-size: 12px;color: #98989a;">  查看全文...</small>
+		            </a>
+		        </div>
+		        <div class="post-meta clearfix">
+		            <div class="post-img col-xs-1 col-sm-1">
+		                <a href="{{ url_for('.user', username=post.author.username) }}">
+		                    <img class="img-circle"
+		                    src="{{ url_for('static', filename=post.author.head_img) }}" width="30" height="30">
+		                </a>
+		            </div>
+		            <div class="post-author col-xs-5 col-sm-3">
+		                作者：
+		                <a href="{{ url_for('.user', username=post.author.username) }}">
+		                {{ post.author.username }}
+		                </a>
+		            </div>
+		            <div class="post-date col-xs-4 col-sm-4">发布于：{{ moment(post.timestamp).format('L') }}</div>
+		            <div class="comment-count col-xs-2 col-sm-4">
+		            <p class="text-right" style="font-size: 10px;">
+		            {{ Comment.query.filter_by(post_id=post.id).count() }} 条评论<br>{{ post.count }} 次浏览</p></div>
+		        </div>
+		    </li>
+		{% endif %}
+    	{% endfor %}
+</div>
+	{% else %}
+	<p>这个主题还没有任何内容哟</p>	
+	{% endif %}
+</div>
+{% endblock %}
+{% block foot %}{% endblock %}

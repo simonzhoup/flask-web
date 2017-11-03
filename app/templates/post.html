@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
 
-{% block page_content %}
+{% block page_head %}
 	<div class="post col-xs-12" style="height: 100%;">
         <div class="post-head-img col-xs-12">
             <img class="img-responsive" src="{{ url_for('static', filename=post.post_img) }}">
@@ -13,6 +13,7 @@
                 <a href="{{ url_for('.user', username=post.author.username) }}">
                 {{ post.author.username }}
                 </a>
+                主题:{{ post.topics }}
             </div>
             <div class="post-date col-xs-5">
             发布于：{{ moment(post.timestamp).format('L') }}

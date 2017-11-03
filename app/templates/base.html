@@ -30,6 +30,7 @@
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li><a href="/">Home</a></li>
+                <li><a href="{{ url_for('main.topics') }}">主题</a></li>
                 {% if current_user.is_authenticated %}
                 <li><a href="{{ url_for('main.edit') }}">
                 写文章</a></li>
@@ -62,20 +63,28 @@
 
 <!-- #底部开始-->
 {% block content %}
-<div class="container col-lg-7 col-lg-offset-2 col-xs-12">
+<div class="container-head col-lg-8 col-lg-offset-2 col-xs-12">
     {% for message in get_flashed_messages() %}
     <div class="alert alert-warning">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
         {{ message }}
     </div>
     {% endfor %}
+    {% block page_head %}
+    {% endblock %}
+</div>
+<div class="container col-lg-5 col-lg-offset-2 col-xs-12">    
 	{% block page_content %}
+    {% endblock %}
+</div>
+<div class="container-right col-lg-3 col-xs-12">
+    {% block page_right %}
     {% endblock %}
 </div>
 {% endblock %}
 
 {% block foot %}
-<div class="foot col-xs-12" >
+<!-- <div class="foot col-xs-12" >
     <div class="footer col-lg-6 col-lg-offset-3">
     <div class="wecat col-xs-4">
         <img src="{{ url_for('static',filename='wechat.jpg') }}" width="60" height="60">
@@ -85,12 +94,7 @@
         Email: <a href="mailto:simonzhoup@outlook.com" style="color: #9fadc7;">simonzhoup@outlook.com</a><br />
         Weibo: <a target="_blank" href="https://weibo.com/u/5030966814" style="color: #9fadc7;">Simon_Dog</a>
     </div>
-    <!--
-    <div class="powered col-xs-5">
-        Powered by <a target="_blank" href="http://flask.pocoo.org/" style="color: #9fadc7;">Flask</a>
-    </div>
-    -->
-</div>
+</div> -->
 {% endblock %}
 <!-- #底部结束-->
 
